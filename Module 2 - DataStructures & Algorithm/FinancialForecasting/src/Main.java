@@ -1,7 +1,6 @@
 /**
  * Basic recursive solution: O(n) <br>
  * DP/Memoization can be applied, but there are no overlapping subproblems, so it provides little benefit.
- * The best practical optimization is to use the closed-form compound-growth formula P(1+r)^n, which avoids recursion altogether.
  */
 
 public class Main {
