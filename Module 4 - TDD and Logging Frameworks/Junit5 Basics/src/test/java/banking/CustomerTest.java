@@ -1,23 +1,23 @@
 package banking;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
 
 public class CustomerTest {
 
     private Customer customer;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
          customer = new Customer("Mabud", 21, "mdmabud2005@gmail.com", new BigDecimal(12000), "Savings");
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         customer = null;
     }
@@ -31,7 +31,7 @@ public class CustomerTest {
         String actualName = customer.toString();
 
         // Assert
-        assertEquals(expectedName, actualName);
+        Assertions.assertEquals(expectedName, actualName);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class CustomerTest {
         BigDecimal actualBalance = customer.getBalance();
 
         // Assert
-        assertEquals(expectedBalance, actualBalance);
+        Assertions.assertEquals(expectedBalance, actualBalance);
     }
 
     @Test
@@ -59,6 +59,6 @@ public class CustomerTest {
         BigDecimal actualBalance = customer.getBalance();
 
         // Assert
-        assertEquals(expectedBalance, actualBalance);
+        Assertions.assertEquals(expectedBalance, actualBalance);
     }
 }
