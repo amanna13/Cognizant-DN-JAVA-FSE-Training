@@ -5,6 +5,9 @@ package com.amanna;
 public class Main {
     public static void main(String[] args) {
         BankAccount bankAccount = new BankAccount();
-        bankAccount.withdraw();
+        bankAccount.withdraw(200);
+        bankAccount.deposit(1000);
+        bankAccount.deposit(-100);
+        bankAccount.withdraw(900);
     }
 }
