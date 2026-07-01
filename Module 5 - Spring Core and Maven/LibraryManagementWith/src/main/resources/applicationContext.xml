@@ -5,6 +5,7 @@
 
     <bean class="com.amanna.repository.BookRepository" id="bookRepository"/>
     <bean class="com.amanna.service.BookService" id="bookService">
+        <constructor-arg ref="bookRepository" name="bookRepository"/>
         <property name="bookRepository" ref="bookRepository"/>
     </bean>
 </beans>
