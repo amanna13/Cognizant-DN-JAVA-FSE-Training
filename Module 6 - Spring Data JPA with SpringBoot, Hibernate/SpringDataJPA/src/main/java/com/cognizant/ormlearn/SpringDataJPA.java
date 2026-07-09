@@ -27,6 +27,16 @@ public class SpringDataJPA {
         logger.info("Start");
         List<Country> countries = countryService.getAllCountries();
         logger.debug("counties = {}", countries);
+
+        Country country = new Country();
+        country.setCode("AU");
+        country.setName("AUSTRALIA");
+
+        //Add country using hibernate
+//        logger.debug("Country Added - {} ", countryService.addCountryHibernate(country));
+
+        //Using SpringDataJPA
+        logger.debug("Country Added using SpringDataJPA - {}", countryService.addCountry(country));
         logger.info("End");
     }
 }
