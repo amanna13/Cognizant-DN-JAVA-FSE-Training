@@ -2,6 +2,7 @@ package com.cognizant.ormlearn;
 
 import com.cognizant.ormlearn.model.Country;
 import com.cognizant.ormlearn.service.CountryService;
+import com.cognizant.ormlearn.service.exception.CountryNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -16,12 +17,12 @@ public class SpringDataJPA {
     private static final Logger logger = LoggerFactory.getLogger(SpringDataJPA.class);
     private static CountryService countryService;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CountryNotFoundException {
         ApplicationContext applicationContext = SpringApplication.run(SpringDataJPA.class, args);
         countryService = applicationContext.getBean(CountryService.class);
         logger.info("Inside Main");
 
-        testAllCountries();
+        getAllCountries();
     }
     private static void testAllCountries() {
         logger.info("Start");
@@ -37,6 +38,13 @@ public class SpringDataJPA {
 
         //Using SpringDataJPA
         logger.debug("Country Added using SpringDataJPA - {}", countryService.addCountry(country));
+        logger.info("End");
+    }
+
+    private static  void getAllCountries() throws CountryNotFoundException {
+        logger.info("Start");
+        Country country = countryService.findCountryByCode("XC");
+        logger.debug("Country: {}", country);
         logger.info("End");
     }
 }
