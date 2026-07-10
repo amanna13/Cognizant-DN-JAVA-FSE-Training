@@ -30,6 +30,7 @@ public class CountryService {
     }
 
     //Spring Data JPA
+    //Adding a new country method
     @Transactional
     public Country addCountry(Country country) {
         return countryRepository.save(country);
