@@ -2,7 +2,7 @@ package com.cognizant.springjpaqueries.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "employee")
@@ -22,7 +22,11 @@ public class Employee {
     private boolean permanent;
 
     @Column(name = "em_date_of_birth")
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
+
+    @ManyToOne
+    @JoinColumn(name = "em_dp_id")
+    private Department department;
 
     public Employee() {
     }
@@ -59,22 +63,25 @@ public class Employee {
         this.permanent = permanent;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", salary=" + salary +
-                ", permanent=" + permanent +
-                ", dateOfBirth=" + dateOfBirth +
-                '}';
+        return "Employee{" + "id=" + id + ", name='" + name + '\'' + ", salary=" + salary + ", permanent=" + permanent + ", dateOfBirth=" + dateOfBirth + '}';
     }
+
 }

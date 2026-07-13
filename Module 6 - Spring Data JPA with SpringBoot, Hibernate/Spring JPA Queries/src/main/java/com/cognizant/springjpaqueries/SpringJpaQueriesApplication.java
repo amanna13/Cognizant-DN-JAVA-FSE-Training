@@ -1,5 +1,10 @@
 package com.cognizant.springjpaqueries;
 
+import com.cognizant.springjpaqueries.model.Department;
+import com.cognizant.springjpaqueries.model.Employee;
+import com.cognizant.springjpaqueries.service.DepartmentService;
+import com.cognizant.springjpaqueries.service.EmployeeService;
+import com.cognizant.springjpaqueries.service.SkillService;
 import com.cognizant.springjpaqueries.service.StockService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDate;
 
 @SpringBootApplication
@@ -16,9 +22,22 @@ public class SpringJpaQueriesApplication {
     private static final Logger logger = LoggerFactory.getLogger(SpringJpaQueriesApplication.class);
     private static StockService stockService;
 
+    // Employee database
+    private static EmployeeService employeeService;
+    private static DepartmentService departmentService;
+    private static SkillService skillService;
+
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(SpringJpaQueriesApplication.class, args);
         stockService = applicationContext.getBean(StockService.class);
+
+        employeeService = applicationContext.getBean(EmployeeService.class);
+        departmentService = applicationContext.getBean(DepartmentService.class);
+        skillService = applicationContext.getBean(SkillService.class);
+
+        testGetEmployee();
+        testAddEmployee();
+        testUpdateEmployee();
     }
 
     public static void testQueryMethods() {
@@ -30,4 +49,50 @@ public class SpringJpaQueriesApplication {
         logger.info("End");
     }
 
+
+    private static void testGetEmployee() {
+        logger.info("Start");
+
+        Employee employee = employeeService.getEmployeeById(1).get();
+
+        logger.debug("Employe - {}", employee);
+
+        logger.debug("Department : {}", employee.getDepartment());
+
+        logger.info("End");
+    }
+
+    private static void testAddEmployee() {
+
+        Employee employee = new Employee();
+
+        employee.setName("Rahul");
+        employee.setSalary(45000);
+        employee.setPermanent(true);
+
+        employee.setDateOfBirth(
+                LocalDate.parse("1999-05-20"));
+
+        Department department = departmentService.getDepartmentById(1).get();
+
+        employee.setDepartment(department);
+
+        employeeService.saveEmployee(employee);
+
+        logger.debug("{}", employee);
+
+    }
+
+    private static void testUpdateEmployee() {
+
+        Employee employee = employeeService.getEmployeeById(2).get();
+
+        Department department = departmentService.getDepartmentById(2).get();
+
+        employee.setDepartment(department);
+
+        employeeService.saveEmployee(employee);
+
+        logger.debug("{}", employee);
+    }
 }
