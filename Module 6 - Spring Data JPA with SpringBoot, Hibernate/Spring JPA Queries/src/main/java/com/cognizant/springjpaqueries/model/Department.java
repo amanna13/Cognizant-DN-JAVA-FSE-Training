@@ -3,6 +3,7 @@ package com.cognizant.springjpaqueries.model;
 import jakarta.persistence.*;
 
 import javax.annotation.processing.Generated;
+import java.util.Set;
 
 @Entity
 public class Department {
@@ -14,6 +15,9 @@ public class Department {
 
     @Column(name="dp_name")
     private String name;
+
+    @OneToMany(mappedBy = "department", fetch = FetchType.EAGER)
+    private Set<Employee> employeeList;
 
     public int getId() {
         return id;
@@ -37,5 +41,13 @@ public class Department {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public Set<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(Set<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 }

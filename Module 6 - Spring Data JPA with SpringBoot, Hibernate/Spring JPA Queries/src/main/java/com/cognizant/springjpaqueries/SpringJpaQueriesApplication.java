@@ -35,9 +35,11 @@ public class SpringJpaQueriesApplication {
         departmentService = applicationContext.getBean(DepartmentService.class);
         skillService = applicationContext.getBean(SkillService.class);
 
-        testGetEmployee();
-        testAddEmployee();
-        testUpdateEmployee();
+//        testGetEmployee();
+//        testAddEmployee();
+//        testUpdateEmployee();
+
+        testGetDepartment();
     }
 
     public static void testQueryMethods() {
@@ -94,5 +96,11 @@ public class SpringJpaQueriesApplication {
         employeeService.saveEmployee(employee);
 
         logger.debug("{}", employee);
+    }
+
+    private static void testGetDepartment() {
+        Department department = departmentService.getDepartmentById(1).get();
+        logger.debug("Department - {}", department);
+        logger.debug("Department Employee List - {}", department.getEmployeeList());
     }
 }
