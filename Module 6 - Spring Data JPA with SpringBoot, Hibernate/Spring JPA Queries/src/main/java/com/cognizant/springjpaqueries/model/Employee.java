@@ -3,6 +3,7 @@ package com.cognizant.springjpaqueries.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "employee")
@@ -27,6 +28,12 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "em_dp_id")
     private Department department;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "em_skill",
+            joinColumns = @JoinColumn(name = "es_em_id" ),
+            inverseJoinColumns = @JoinColumn(name = "es_sk_id"))
+    private Set<Skill> skillSet;
 
     public Employee() {
     }
@@ -79,9 +86,22 @@ public class Employee {
         this.department = department;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" + "id=" + id + ", name='" + name + '\'' + ", salary=" + salary + ", permanent=" + permanent + ", dateOfBirth=" + dateOfBirth + '}';
+    public Set<Skill> getSkillSet() {
+        return skillSet;
     }
 
+    public void setSkillSet(Set<Skill> skillSet) {
+        this.skillSet = skillSet;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", salary=" + salary +
+                ", permanent=" + permanent +
+                ", dateOfBirth=" + dateOfBirth +
+                '}';
+    }
 }

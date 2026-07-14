@@ -2,6 +2,8 @@ package com.cognizant.springjpaqueries.model;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 public class Skill {
 
@@ -12,6 +14,9 @@ public class Skill {
 
     @Column(name="sk_name")
     private String name;
+
+    @ManyToMany(mappedBy = "skillSet", fetch = FetchType.EAGER)
+    private Set<Employee> employeeSet;
 
     public String getName() {
         return name;
@@ -31,9 +36,19 @@ public class Skill {
 
     public Skill(){}
 
+    public Set<Employee> getEmployeeSet() {
+        return employeeSet;
+    }
+
+    public void setEmployeeSet(Set<Employee> employeeSet) {
+        this.employeeSet = employeeSet;
+    }
+
     @Override
     public String toString() {
-        return "Skill [id=" + id +
-                ", name=" + name + "]";
+        return "Skill{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

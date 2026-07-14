@@ -2,6 +2,7 @@ package com.cognizant.springjpaqueries;
 
 import com.cognizant.springjpaqueries.model.Department;
 import com.cognizant.springjpaqueries.model.Employee;
+import com.cognizant.springjpaqueries.model.Skill;
 import com.cognizant.springjpaqueries.service.DepartmentService;
 import com.cognizant.springjpaqueries.service.EmployeeService;
 import com.cognizant.springjpaqueries.service.SkillService;
@@ -38,8 +39,10 @@ public class SpringJpaQueriesApplication {
 //        testGetEmployee();
 //        testAddEmployee();
 //        testUpdateEmployee();
+//        testGetSkill();
+//        testGetDepartment();
 
-        testGetDepartment();
+        testAddSkillToEmployee();
     }
 
     public static void testQueryMethods() {
@@ -60,6 +63,8 @@ public class SpringJpaQueriesApplication {
         logger.debug("Employe - {}", employee);
 
         logger.debug("Department : {}", employee.getDepartment());
+
+        logger.debug("Skills: {}", employee.getSkillSet());
 
         logger.info("End");
     }
@@ -102,5 +107,35 @@ public class SpringJpaQueriesApplication {
         Department department = departmentService.getDepartmentById(1).get();
         logger.debug("Department - {}", department);
         logger.debug("Department Employee List - {}", department.getEmployeeList());
+    }
+
+    private static void  testGetSkill() {
+        Skill skill = skillService.getSkillById(1).get();
+        logger.debug("Skill - {}", skill);
+        logger.debug("Employee Set - {}", skill.getEmployeeSet());
+    }
+
+    private static void testAddSkillToEmployee() {
+
+        logger.info("Start");
+
+        int employeeId = 1;
+        int skillId = 3;
+
+        // Get employee
+        Employee employee = employeeService.getEmployeeById(employeeId).get();
+
+        // Get skill
+        Skill skill = skillService.getSkillById(skillId).get();
+
+        // Get employee's skill list and add new skill
+        employee.getSkillSet().add(skill);
+
+        // Save employee (updates join table)
+        employeeService.saveEmployee(employee);
+
+        logger.debug("Employee after adding skill: {}", employee);
+
+        logger.info("End");
     }
 }
