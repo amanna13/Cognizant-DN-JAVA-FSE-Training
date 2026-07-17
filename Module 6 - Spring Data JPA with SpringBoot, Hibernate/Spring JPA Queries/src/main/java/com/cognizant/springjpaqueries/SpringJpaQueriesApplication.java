@@ -46,7 +46,9 @@ public class SpringJpaQueriesApplication {
 //        testAddSkillToEmployee();
 //        testGetAllPermanentEmployees();
 
-        testGetAverageSalary();
+//        testGetAverageSalary();
+
+        getAllEmployeesNative();
     }
 
     public static void testQueryMethods() {
@@ -158,5 +160,12 @@ public class SpringJpaQueriesApplication {
 
         //get average salary of department using department
         logger.debug("Average Salary of Employees from a specific departmen - {}", employeeService.getAverageSalary(1));
+        logger.info("End");
+    }
+
+    public static void getAllEmployeesNative() {
+        logger.info("Start");
+        logger.debug("Get all employees using Native Queries - {}", employeeService.getAllEmployeesNative());
+        logger.info("End");
     }
 }

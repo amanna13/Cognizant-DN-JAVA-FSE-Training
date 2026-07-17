@@ -18,4 +18,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query(value = "SELECT AVG(e.salary) FROM Employee e where e.department.id = :id")
     double getAverageSalary(@Param("id") int id);
 
+    @Query(value = "select * from employee", nativeQuery = true)
+    List<Employee> getAllEmloyeesNative();
+
 }
