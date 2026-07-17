@@ -7,10 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/country")
@@ -21,7 +18,16 @@ public class CountryController {
 
     @GetMapping
     public ResponseEntity<Country> getCountryIndia() {
-        Country getCountry = countryService.getCountry();
+        Country getCountry = countryService.getCountryIndia();
         return ResponseEntity.status(HttpStatus.OK).body(getCountry);
     }
+
+    @GetMapping("/countries/{code}")
+    public ResponseEntity<Country> getCountryByCode(@PathVariable String code) {
+        Country country = countryService.getCountryByCountryCode(code);
+
+        if (country == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.status(HttpStatus.OK).body(country);
+    }
+
 }

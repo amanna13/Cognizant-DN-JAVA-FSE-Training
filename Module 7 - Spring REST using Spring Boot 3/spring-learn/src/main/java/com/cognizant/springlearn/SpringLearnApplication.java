@@ -24,7 +24,7 @@ public class SpringLearnApplication {
 
     public static void displayCountry() {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("country.xml");
-        Country country = applicationContext.getBean("country", Country.class);
+        Country country = applicationContext.getBean("india", Country.class);
 
         logger.debug("Country - {}", country.toString());
     }
