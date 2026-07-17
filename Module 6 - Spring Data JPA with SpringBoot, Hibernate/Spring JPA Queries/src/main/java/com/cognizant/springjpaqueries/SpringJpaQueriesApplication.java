@@ -16,6 +16,7 @@ import org.springframework.context.ApplicationContext;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 @SpringBootApplication
 public class SpringJpaQueriesApplication {
@@ -42,7 +43,8 @@ public class SpringJpaQueriesApplication {
 //        testGetSkill();
 //        testGetDepartment();
 
-        testAddSkillToEmployee();
+//        testAddSkillToEmployee();
+        testGetAllPermanentEmployees();
     }
 
     public static void testQueryMethods() {
@@ -136,6 +138,15 @@ public class SpringJpaQueriesApplication {
 
         logger.debug("Employee after adding skill: {}", employee);
 
+        logger.info("End");
+    }
+
+    //Custom HQL Query
+    public static void testGetAllPermanentEmployees() {
+        logger.info("Start");
+        List<Employee> employees = employeeService.getAllPermanentEmployees();
+        logger.debug("Permanent employees - {}", employees);
+        employees.forEach( e -> logger.debug("Skills - {}", e.getSkillSet()));
         logger.info("End");
     }
 }

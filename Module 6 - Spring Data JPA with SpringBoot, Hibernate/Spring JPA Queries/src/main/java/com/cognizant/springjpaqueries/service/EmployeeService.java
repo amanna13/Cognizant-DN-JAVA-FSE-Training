@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,5 +33,10 @@ public class EmployeeService {
     public Optional<Employee> getEmployeeById(Integer id) {
         logger.info("Start");
         return employeeRepository.findById(id);
+    }
+
+    @Transactional
+    public List<Employee> getAllPermanentEmployees() {
+        return employeeRepository.getAllPermanentEmployees();
     }
 }
