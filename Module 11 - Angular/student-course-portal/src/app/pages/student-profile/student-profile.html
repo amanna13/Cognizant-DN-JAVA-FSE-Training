@@ -1,1 +1,11 @@
-<p>Student profile works.</p>
+<section class="profile-page">
+	<h1>Student Profile</h1>
+
+	<p *ngIf="enrolledCourses.length === 0">No enrolled courses yet.</p>
+
+	<ul *ngIf="enrolledCourses.length > 0">
+		<li *ngFor="let course of enrolledCourses">
+			{{ course.name }} ({{ course.code }})
+		</li>
+	</ul>
+</section>

@@ -5,12 +5,9 @@
 	<app-course-card
 		*ngFor="let course of courses; let i = index; trackBy: trackByCourseId"
 		[course]="course"
-		(enrollRequested)="onEnroll($event)"
 		appHighlight>
 	</app-course-card>
 	</ng-container>
-
-	<p *ngIf="selectedCourseId">Selected course ID: {{ selectedCourseId }}</p>
 
 	<ng-template #noCourses>
 		<p>No courses available.</p>

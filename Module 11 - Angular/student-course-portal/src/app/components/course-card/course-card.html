@@ -11,7 +11,7 @@
   </p>
 
   <div class="actions">
-    <button type="button" (click)="enrollRequested.emit(course.id)">Enroll</button>
+    <button type="button" (click)="onEnrollClick()">{{ enrollButtonLabel }}</button>
     <button type="button" (click)="toggleDetails()">Show Details</button>
   </div>
 </article>

@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { CreditLabelPipe } from '../../pipes/credit-label/credit-label.pipe';
+import { EnrollmentService } from '../../services/enrollment.service';
+import { Course } from '../../models/course.model';
 
 @Component({
   selector: 'app-course-card',
@@ -11,17 +13,11 @@ import { CreditLabelPipe } from '../../pipes/credit-label/credit-label.pipe';
   styleUrl: './course-card.css'
 })
 export class CourseCardComponent implements OnChanges {
-  @Input() course!: {
-    id: number;
-    name: string;
-    code: string;
-    credits: number | null;
-    gradeStatus: 'passed' | 'failed' | 'pending';
-    enrolled?: boolean;
-  };
-  @Output() enrollRequested = new EventEmitter<number>();
+  @Input() course!: Course;
 
   isExpanded = false;
+
+  constructor(private enrollmentService: EnrollmentService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     const courseChange = changes['course'];
@@ -37,8 +33,8 @@ export class CourseCardComponent implements OnChanges {
   get cardClasses(): Record<string, boolean> {
     // A getter keeps the template binding compact while still centralising class logic.
     return {
-      'card--enrolled': !!this.course?.enrolled,
-      'card--full': (this.course?.credits ?? 0) >= 4,
+      'card--enrolled': this.enrollmentService.isEnrolled(this.course.id),
+      'card--full': this.course.credits >= 4,
       expanded: this.isExpanded
     };
   }
@@ -57,5 +53,18 @@ export class CourseCardComponent implements OnChanges {
 
   toggleDetails(): void {
     this.isExpanded = !this.isExpanded;
+  }
+
+  onEnrollClick(): void {
+    if (this.enrollmentService.isEnrolled(this.course.id)) {
+      this.enrollmentService.unenroll(this.course.id);
+      return;
+    }
+
+    this.enrollmentService.enroll(this.course.id);
+  }
+
+  get enrollButtonLabel(): string {
+    return this.enrollmentService.isEnrolled(this.course.id) ? 'Unenroll' : 'Enroll';
   }
 }

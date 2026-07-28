@@ -1,0 +1,8 @@
+<section class="notification-card">
+  <h2>Notifications</h2>
+  <button type="button" (click)="addNotification()">Add Notification</button>
+
+  <ul>
+    <li *ngFor="let message of messages">{{ message }}</li>
+  </ul>
+</section>
