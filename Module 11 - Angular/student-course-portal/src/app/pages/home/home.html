@@ -1,11 +1,24 @@
 <section class="home-page">
-  <h1>Welcome to Student Course Portal</h1>
+  <h1>{{ portalName }}</h1>
   <p>Track your courses, monitor progress, and keep your academic details in one place.</p>
+
+  <div class="home-actions">
+    <button [disabled]="!isPortalActive" (click)="onEnrollClick()">Enroll Now</button>
+    <p *ngIf="message">{{ message }}</p>
+  </div>
+
+  <div class="search-box">
+    <label for="searchTerm">Search courses</label>
+    <input id="searchTerm" [(ngModel)]="searchTerm" />
+    <p>Searching for: {{ searchTerm }}</p>
+  </div>
+
+  <!-- [property] updates the DOM from the component, while [(ngModel)] keeps the DOM and component in sync. -->
 
   <div class="stats-row">
     <div class="stat-card">
       <span class="stat-label">Courses Available</span>
-      <span class="stat-value">12</span>
+      <span class="stat-value">{{ coursesAvailable }}</span>
     </div>
     <div class="stat-card">
       <span class="stat-label">Enrolled</span>
