@@ -1,9 +1,18 @@
 <section class="course-list">
+	<p *ngIf="isLoading">Loading courses...</p>
+
+	<ng-container *ngIf="!isLoading; else noCourses">
 	<app-course-card
-		*ngFor="let course of courses"
+		*ngFor="let course of courses; let i = index; trackBy: trackByCourseId"
 		[course]="course"
-		(enrollRequested)="onEnroll($event)">
+		(enrollRequested)="onEnroll($event)"
+		appHighlight>
 	</app-course-card>
+	</ng-container>
 
 	<p *ngIf="selectedCourseId">Selected course ID: {{ selectedCourseId }}</p>
+
+	<ng-template #noCourses>
+		<p>No courses available.</p>
+	</ng-template>
 </section>

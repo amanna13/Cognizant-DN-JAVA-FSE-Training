@@ -1,8 +1,17 @@
-<article class="course-card">
+<article class="course-card" [ngClass]="cardClasses" [ngStyle]="{ 'border-left-color': borderColor }">
   <h3>{{ course.name }}</h3>
   <p>Code: {{ course.code }}</p>
-  <p>Credits: {{ course.credits }}</p>
+  <p>Credits: {{ course.credits | creditLabel }}</p>
   <p>ID: {{ course.id }}</p>
 
-  <button type="button" (click)="enrollRequested.emit(course.id)">Enroll</button>
+  <p [ngSwitch]="course.gradeStatus">
+    <span *ngSwitchCase="'passed'" class="status status--passed">Passed</span>
+    <span *ngSwitchCase="'failed'" class="status status--failed">Failed</span>
+    <span *ngSwitchDefault class="status status--pending">Pending</span>
+  </p>
+
+  <div class="actions">
+    <button type="button" (click)="enrollRequested.emit(course.id)">Enroll</button>
+    <button type="button" (click)="toggleDetails()">Show Details</button>
+  </div>
 </article>
