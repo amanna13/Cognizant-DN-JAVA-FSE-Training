@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { CreditLabelPipe } from '../../pipes/credit-label/credit-label.pipe';
 import { EnrollmentService } from '../../services/enrollment.service';
@@ -17,7 +18,10 @@ export class CourseCardComponent implements OnChanges {
 
   isExpanded = false;
 
-  constructor(private enrollmentService: EnrollmentService) {}
+  constructor(
+    private enrollmentService: EnrollmentService,
+    private router: Router
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     const courseChange = changes['course'];
@@ -53,6 +57,10 @@ export class CourseCardComponent implements OnChanges {
 
   toggleDetails(): void {
     this.isExpanded = !this.isExpanded;
+  }
+
+  navigateToCourse(): void {
+    this.router.navigate(['courses', this.course.id]);
   }
 
   onEnrollClick(): void {

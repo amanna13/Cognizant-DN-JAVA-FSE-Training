@@ -1,0 +1,10 @@
+<section class="course-detail" *ngIf="course as currentCourse; else missingCourse">
+  <h2>{{ currentCourse.name }}</h2>
+  <p>Code: {{ currentCourse.code }}</p>
+  <p>Credits: {{ currentCourse.credits }}</p>
+  <p>Grade Status: {{ currentCourse.gradeStatus }}</p>
+</section>
+
+<ng-template #missingCourse>
+  <p>Course not found.</p>
+</ng-template>

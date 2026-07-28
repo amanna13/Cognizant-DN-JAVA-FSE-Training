@@ -1,4 +1,4 @@
-<article class="course-card" [ngClass]="cardClasses" [ngStyle]="{ 'border-left-color': borderColor }">
+<article class="course-card" [ngClass]="cardClasses" [ngStyle]="{ 'border-left-color': borderColor }" (click)="navigateToCourse()">
   <h3>{{ course.name }}</h3>
   <p>Code: {{ course.code }}</p>
   <p>Credits: {{ course.credits | creditLabel }}</p>
@@ -11,7 +11,7 @@
   </p>
 
   <div class="actions">
-    <button type="button" (click)="onEnrollClick()">{{ enrollButtonLabel }}</button>
-    <button type="button" (click)="toggleDetails()">Show Details</button>
+    <button type="button" (click)="$event.stopPropagation(); onEnrollClick()">{{ enrollButtonLabel }}</button>
+    <button type="button" (click)="$event.stopPropagation(); toggleDetails()">Show Details</button>
   </div>
 </article>

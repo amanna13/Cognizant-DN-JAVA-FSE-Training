@@ -12,6 +12,8 @@ import {
   Validators
 } from '@angular/forms';
 
+import { CanComponentDeactivate } from '../../guards/unsaved-changes.guard';
+
 function noCourseCode(control: AbstractControl): ValidationErrors | null {
   const value = String(control.value ?? '');
   return value.startsWith('XX') ? { noCourseCode: true } : null;
@@ -58,6 +60,10 @@ export class ReactiveEnrollmentFormComponent implements OnInit {
   onSubmit(): void {
     console.log(this.enrollForm.value);
     console.log(this.enrollForm.getRawValue());
+  }
+
+  canDeactivate(): boolean {
+    return !this.enrollForm?.dirty || window.confirm('You have unsaved changes. Leave?');
   }
 
   addCourse(): void {
